@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(npm install *)",
+      "PowerShell(npm run *)",
+      "PowerShell(Start-Sleep -Seconds 3; $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -TimeoutSec 30 -UseBasicParsing; \"Status: $\\($r.StatusCode\\)\"; \"Has hero-video-scale script: $\\($r.Content -match 'hero-video-scale'\\)\")"
+    ]
+  }
+}
