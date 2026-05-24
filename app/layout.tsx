@@ -124,7 +124,7 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
         <Script id="countup-init" strategy="afterInteractive">
-          {`(function(){function start(){if(!window.jQuery||!window.CountUp||!window.ScrollTrigger){return setTimeout(start,80);}var $=window.jQuery;$(".counterup").each(function(i){var id="countup"+i;$(this).attr("id",id);var s=+$(this).text();var e=+$(this).attr("final-number");var dur=$(this).attr("count-duration");var c=new window.CountUp(id,s,e,0,dur);window.ScrollTrigger.create({trigger:this,start:"top bottom",end:"bottom top",onLeaveBack:function(){c.reset();}});window.ScrollTrigger.create({trigger:this,start:"top 80%",end:"bottom top",onEnter:function(){c.start();}});});}start();})();`}
+          {`(function(){function start(){if(!window.CountUp){return setTimeout(start,80);}var els=document.querySelectorAll(".counterup");if(!els.length){return setTimeout(start,120);}els.forEach(function(el,i){var id="countup"+i;el.id=id;var s=+(el.textContent||"0");var e=+(el.getAttribute("final-number")||"0");var dur=+(el.getAttribute("count-duration")||"2");var c=new window.CountUp(id,s,e,0,dur);var started=false;var io=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting&&!started){started=true;c.start();}else if(!en.isIntersecting&&started&&en.boundingClientRect.top>0){started=false;c.reset();}});},{threshold:0.2});io.observe(el);});}start();})();`}
         </Script>
       </body>
     </html>
